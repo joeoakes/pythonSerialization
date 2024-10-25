@@ -18,7 +18,7 @@ class Student:
         return cls(data["name"], data["age"], data["grade"])
 
 # Creating an instance of the Student class
-student1 = Student("Alice", 17, "11th")
+student1 = Student("Alice\'s", 17, "11th")
 
 # Serialization: Converting the student object to JSON string
 student_json = json.dumps(student1.to_dict())
@@ -26,8 +26,15 @@ student_json = json.dumps(student1.to_dict())
 print("Student object serialized to JSON string:")
 print(student_json)
 
+with open("student.txt", "w") as file:
+    file.write(student_json)
+
 # Deserialization: Converting the JSON string back to a student object
-loaded_student_dict = json.loads(student_json)
+with open("student.txt", "r") as file:
+    content = file.read()
+
+loaded_student_dict = json.loads(content)
+#loaded_student_dict = json.loads(student_json)
 loaded_student = Student.from_dict(loaded_student_dict)
 
 print("\nStudent object deserialized from JSON string:")
